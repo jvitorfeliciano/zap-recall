@@ -15,6 +15,10 @@ export default function App() {
   const [count, setCount] = useState(0);
   const [startReview, setStartReview] = useState(false);
   const [showIcons, setShowIcons]= useState([]);
+  const [goalInput, setGoalInput] = useState('');
+  const [showGoal, setShowGoal] = useState(0)
+  const [goalSuccess, setGoalSucess] = useState(false)
+  const [goalFail, setGoalFail] = useState(false)
 
   return (
     <>
@@ -31,14 +35,18 @@ export default function App() {
               isAvailable={isAvailable}
               setIsAvailable={setIsAvailable}
               setShowIcons={setShowIcons}
+              goalInput={goalInput}
+              setShowGoal={setShowGoal}
+              setGoalFail={setGoalFail}
+              setGoalSucess={setGoalSucess}
             />
-            <FooterSection count={count} showIcons={showIcons}/>
+            <FooterSection count={count} showIcons={showIcons} showGoal={showGoal} goalInput={goalInput} goalFail={goalFail} goalSuccess={goalSuccess}/>
           </ScreenBox>
         </>
       ) : (
         <>
           <GloboStyle />
-          <Homescreen setStartReview={setStartReview} />
+          <Homescreen setStartReview={setStartReview} goalInput={goalInput} setGoalInput={setGoalInput}/>
         </>
       )}
     </>

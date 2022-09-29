@@ -6,17 +6,19 @@ import { useState } from "react";
 
 // abrir os cards um por vez;
 let counter =0;
+let goalCounter=0;
 const questionNumberAdress = flashcardVector.map((q, index) => index);
 let flippedAdress = [];
 let questionAdressVector = [];
 let answerAdress = [];
 let iconVector=[];
+
 export default function Deck({
   statusSaved,
   isAvailable,
   setIsAvailable,
   setStatusSaved,
-  count, setCount, setShowIcons
+  count, setCount, setShowIcons, goalInput,  setShowGoal, setGoalFail,setGoalSucess
 }) {
   const [questionNumber, setQuestionNumber] = useState(questionNumberAdress);
   const [hasChanging, setHasChanging] = useState(false);
@@ -45,7 +47,7 @@ export default function Deck({
     console.log("teste");
   }
 
-  function renderStages(p, cardAdress) {
+  function RenderStages(p, cardAdress) {
     if (questionNumber.includes(cardAdress)) {
       return (
         <HiddenQuestion key={cardAdress}>
@@ -103,6 +105,12 @@ export default function Deck({
   }
   function assessment(status){
     counter++
+    if(status==='zap'){
+        goalCounter++
+     if(goalCounter<= Number(goalInput)){
+      setShowGoal(goalCounter)   
+    }
+  }
     iconVector=[...iconVector,status]
     const aux = [...statusSaved]
     for(let i=0; i<statusSaved.length; i++){
@@ -126,13 +134,23 @@ export default function Deck({
       })
       setShowIcons([...aux2])
     }
+     if (counter===flashcardVector.length){
+      if(goalCounter >= Number(goalInput)){
+        setGoalSucess(true)
+      }
+      else {
+        setGoalFail(true)
+      }
+     }
+        
+       
    setIsAvailable(true)
    setStatusSaved([...aux])
    console.log(statusSaved)
    console.log(counter)
   }
 
-  return <>{flashcardVector.map((p, index) => renderStages(p, index))}</>;
+  return <>{flashcardVector.map((p, index) => RenderStages(p, index))}</>;
 }
 
 const HiddenQuestion = styled.div`
