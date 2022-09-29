@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import flashcardVector from "../flashcard";
 
-export default function FooterSection({count}) {
+export default function FooterSection({count,showIcons}) {
   
   
   return (
     <Footer>
       
       <span>{count}/{flashcardVector.length} Concluidos</span>
+      <div>{showIcons.map(icon=><IconBox status={icon}><ion-icon  name={icon}></ion-icon></IconBox>
+)}</div>
     </Footer>
   );
 }
@@ -27,8 +29,22 @@ const Footer = styled.footer`
   font-size: 18px;
   color: #333333;
   padding: 10px;
-
+  div{
+    display:flex;
+    margin-top:4px;
+  }
 
 `;
+
+const IconBox=styled.div`
+  
+   font-size: 25px;
+   color: ${(props) =>
+      props.status === "close-circle"
+        ? "red"
+        : props.status === "help-circle"
+        ? "#ff922e"
+        : " #2fbe34"};
+`
 
 

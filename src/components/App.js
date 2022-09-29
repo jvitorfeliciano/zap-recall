@@ -7,34 +7,42 @@ import FooterSection from "./FooterSection";
 import { useState } from "react";
 import flashcardVector from "../flashcard";
 
-const assistent = flashcardVector.map(p =>'status');
+const assistent = flashcardVector.map((p) => "status");
 
 export default function App() {
-const [statusSaved, setStatusSaved] = useState([...assistent])
-const [isAvailable, setIsAvailable] = useState(true);
-const [count, setCount] = useState(0)
-const [startReview, setStartReview] = useState(false)
+  const [statusSaved, setStatusSaved] = useState([...assistent]);
+  const [isAvailable, setIsAvailable] = useState(true);
+  const [count, setCount] = useState(0);
+  const [startReview, setStartReview] = useState(false);
+  const [showIcons, setShowIcons]= useState([]);
 
-  return ( 
-   <> 
-    {startReview && (
-    <> 
-    <GloboStyle />
-    <ScreenBox>
-      <HeaderSection />
-      <Deck  statusSaved={statusSaved} count={count}setCount={setCount}setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  />
-      <FooterSection count={count} />
-    </ScreenBox>
-  </>)
-}
-
-{<>
-  <GloboStyle />
-  <Homescreen setStartReview={setStartReview}/>
-</> 
-  }
- </> 
-  )
+  return (
+    <>
+      {startReview ? (
+        <>
+          <GloboStyle />
+          <ScreenBox>
+            <HeaderSection />
+            <Deck
+              statusSaved={statusSaved}
+              count={count}
+              setCount={setCount}
+              setStatusSaved={setStatusSaved}
+              isAvailable={isAvailable}
+              setIsAvailable={setIsAvailable}
+              setShowIcons={setShowIcons}
+            />
+            <FooterSection count={count} showIcons={showIcons}/>
+          </ScreenBox>
+        </>
+      ) : (
+        <>
+          <GloboStyle />
+          <Homescreen setStartReview={setStartReview} />
+        </>
+      )}
+    </>
+  );
 }
 
 const ScreenBox = styled.div`
@@ -48,4 +56,3 @@ const ScreenBox = styled.div`
   padding: 0px;
   padding-bottom: 200px;
 `;
-

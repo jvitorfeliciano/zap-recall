@@ -5,17 +5,18 @@ import flashcardVector from "../flashcard";
 import { useState } from "react";
 
 // abrir os cards um por vez;
+let counter =0;
 const questionNumberAdress = flashcardVector.map((q, index) => index);
 let flippedAdress = [];
 let questionAdressVector = [];
 let answerAdress = [];
-
+let iconVector=[];
 export default function Deck({
   statusSaved,
   isAvailable,
   setIsAvailable,
   setStatusSaved,
-  count, setCount
+  count, setCount, setShowIcons
 }) {
   const [questionNumber, setQuestionNumber] = useState(questionNumberAdress);
   const [hasChanging, setHasChanging] = useState(false);
@@ -101,6 +102,8 @@ export default function Deck({
     }
   }
   function assessment(status){
+    counter++
+    iconVector=[...iconVector,status]
     const aux = [...statusSaved]
     for(let i=0; i<statusSaved.length; i++){
       if(!isNaN(statusSaved[i])){
@@ -108,9 +111,25 @@ export default function Deck({
         setCount(count+1)
       }
     }
-  setIsAvailable(true)
-  setStatusSaved([...aux])
+    console.log(iconVector)
+    if(counter===flashcardVector.length){
+      const aux2 = iconVector.map(p=>{
+        if(p==='zap'){
+          return "checkmark-circle"
+        }
+        else if(p==='error'){
+          return "close-circle"
+        }
+        else if(p==='almost'){
+          return "help-circle"
+        }
+      })
+      setShowIcons([...aux2])
+    }
+   setIsAvailable(true)
+   setStatusSaved([...aux])
    console.log(statusSaved)
+   console.log(counter)
   }
 
   return <>{flashcardVector.map((p, index) => renderStages(p, index))}</>;
