@@ -2,6 +2,7 @@ import GloboStyle from "../Globostyle";
 import styled from "styled-components";
 import HeaderSection from "./HeaderSection";
 import Deck from "./Deck";
+import Homescreen from "./home";
 import FooterSection from "./FooterSection";
 import { useState } from "react";
 import flashcardVector from "../flashcard";
@@ -12,17 +13,28 @@ export default function App() {
 const [statusSaved, setStatusSaved] = useState([...assistent])
 const [isAvailable, setIsAvailable] = useState(true);
 const [count, setCount] = useState(0)
+const [startReview, setStartReview] = useState(false)
 
-  return (
-    <>
-      <GloboStyle />
-      <ScreenBox>
-        <HeaderSection />
-        <Deck  statusSaved={statusSaved} count={count}setCount={setCount}setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  />
-        <FooterSection count={count} />
-      </ScreenBox>
-    </>
-  );
+  return ( 
+   <> 
+    {startReview && (
+    <> 
+    <GloboStyle />
+    <ScreenBox>
+      <HeaderSection />
+      <Deck  statusSaved={statusSaved} count={count}setCount={setCount}setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  />
+      <FooterSection count={count} />
+    </ScreenBox>
+  </>)
+}
+
+{<>
+  <GloboStyle />
+  <Homescreen setStartReview={setStartReview}/>
+</> 
+  }
+ </> 
+  )
 }
 
 const ScreenBox = styled.div`

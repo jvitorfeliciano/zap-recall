@@ -180,6 +180,7 @@ const ButtonContainer =styled.div`
     width: 100%;
     justify-content: space-evenly;
     margin-bottom:-10px;
+    margin-top:8px;
 `
 const RevealedQuestion = styled.div`
   width: 300px;
