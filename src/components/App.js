@@ -11,14 +11,15 @@ const assistent = flashcardVector.map(p =>'status');
 export default function App() {
 const [statusSaved, setStatusSaved] = useState([...assistent])
 const [isAvailable, setIsAvailable] = useState(true);
+const [count, setCount] = useState(0)
 
   return (
     <>
       <GloboStyle />
       <ScreenBox>
         <HeaderSection />
-        <Deck  statusSaved={statusSaved} setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  />
-        <FooterSection statusSaved={statusSaved} setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  assistent={assistent} />
+        <Deck  statusSaved={statusSaved} count={count}setCount={setCount}setStatusSaved={setStatusSaved} isAvailable={isAvailable} setIsAvailable={setIsAvailable}  />
+        <FooterSection count={count} />
       </ScreenBox>
     </>
   );
@@ -35,3 +36,4 @@ const ScreenBox = styled.div`
   padding: 0px;
   padding-bottom: 200px;
 `;
+

@@ -14,7 +14,8 @@ export default function Deck({
   statusSaved,
   isAvailable,
   setIsAvailable,
-  setStatusSaved
+  setStatusSaved,
+  count, setCount
 }) {
   const [questionNumber, setQuestionNumber] = useState(questionNumberAdress);
   const [hasChanging, setHasChanging] = useState(false);
@@ -25,9 +26,10 @@ export default function Deck({
     }
     const aux = [...statusSaved];
     aux[Number(adress)] = Number(adress);
-    setStatusSaved([...aux])
+    setStatusSaved([...aux]);
 
     flippedAdress = [...flippedAdress, adress];
+    console.log(flippedAdress);
     questionNumberAdress.splice(adress, 1, "");
     setQuestionNumber([...questionNumberAdress]);
     questionAdressVector = [...questionAdressVector, adress];
@@ -67,6 +69,18 @@ export default function Deck({
       return (
         <RevealedQuestion key={cardAdress}>
           <span>{p.R}</span>
+            < ButtonContainer>
+              <ErrorButton onClick={() => assessment("error")} type="button">
+                Não lembrei
+              </ErrorButton>
+              <AlmostButton onClick={() => assessment("almost")} type="button">
+                Quase não lembrei
+              </AlmostButton>
+              <ZapButton onClick={() => assessment("zap")} type="button">
+                Zap!
+              </ZapButton>
+            </ ButtonContainer>
+      
         </RevealedQuestion>
       );
     } else if (flippedAdress.length !== 0) {
@@ -86,6 +100,19 @@ export default function Deck({
       );
     }
   }
+  function assessment(status){
+    const aux = [...statusSaved]
+    for(let i=0; i<statusSaved.length; i++){
+      if(!isNaN(statusSaved[i])){
+        aux[i]=status
+        setCount(count+1)
+      }
+    }
+  setIsAvailable(true)
+  setStatusSaved([...aux])
+   console.log(statusSaved)
+  }
+
   return <>{flashcardVector.map((p, index) => renderStages(p, index))}</>;
 }
 
@@ -101,6 +128,7 @@ const HiddenQuestion = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+
   span {
     font-family: "Recursive";
     font-style: normal;
@@ -143,8 +171,16 @@ const HiddenQuestion = styled.div`
         : " #2fbe34"};
     text-decoration: line-through;
   }
+  div{
+    
+  }
 `;
-
+const ButtonContainer =styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-bottom:-10px;
+`
 const RevealedQuestion = styled.div`
   width: 300px;
   margin: 12px;
@@ -163,10 +199,43 @@ const RevealedQuestion = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   img {
     position: absolute;
     bottom: 10px;
     right: 10px;
   }
+`;
+
+const Button = styled.button`
+  width: 80px;
+  cursor: pointer;
+  height: 37px;
+  font-family: "Recursive";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  background: blue;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  &:hover {
+    filter: brightness(0.7);
+  }
+`;
+
+const ZapButton = styled(Button)`
+  background-color: #2fbe34;
+`;
+const AlmostButton = styled(Button)`
+  background-color: #ff922e;
+`;
+
+const ErrorButton = styled(Button)`
+  background-color: #ff3030;
 `;
