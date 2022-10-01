@@ -5,20 +5,19 @@ import Deck from "./Deck";
 import Homescreen from "./home";
 import FooterSection from "./FooterSection";
 import { useState } from "react";
-import flashcardVector from "../flashcard";
-
-const assistent = flashcardVector.map((p) => "status");
 
 export default function App() {
-  const [statusSaved, setStatusSaved] = useState([...assistent]);
+  const [chosenDeck, setChosenDeck] = useState();
+  const [statusSaved, setStatusSaved] = useState();
   const [isAvailable, setIsAvailable] = useState(true);
   const [count, setCount] = useState(0);
   const [startReview, setStartReview] = useState(false);
-  const [showIcons, setShowIcons]= useState([]);
-  const [goalInput, setGoalInput] = useState('');
-  const [showGoal, setShowGoal] = useState(0)
-  const [goalSuccess, setGoalSucess] = useState(false)
-  const [goalFail, setGoalFail] = useState(false)
+  const [showIcons, setShowIcons] = useState([]);
+  const [goalInput, setGoalInput] = useState("");
+  const [showGoal, setShowGoal] = useState(0);
+  const [goalSuccess, setGoalSucess] = useState(false);
+  const [goalFail, setGoalFail] = useState(false);
+  const [questionNumber, setQuestionNumber] = useState([]);
 
   return (
     <>
@@ -35,18 +34,43 @@ export default function App() {
               isAvailable={isAvailable}
               setIsAvailable={setIsAvailable}
               setShowIcons={setShowIcons}
+              showIcons={showIcons}
               goalInput={goalInput}
               setShowGoal={setShowGoal}
               setGoalFail={setGoalFail}
               setGoalSucess={setGoalSucess}
+              chosenDeck={chosenDeck}
+              questionNumber={questionNumber}
+              setQuestionNumber={setQuestionNumber}
             />
-            <FooterSection count={count} showIcons={showIcons} showGoal={showGoal} goalInput={goalInput} goalFail={goalFail} goalSuccess={goalSuccess}/>
+            <FooterSection
+              count={count}
+              showIcons={showIcons}
+              showGoal={showGoal}
+              goalInput={goalInput}
+              goalFail={goalFail}
+              goalSuccess={goalSuccess}
+              chosenDeck={chosenDeck}
+             
+            />
           </ScreenBox>
         </>
       ) : (
         <>
           <GloboStyle />
-          <Homescreen setStartReview={setStartReview} goalInput={goalInput} setGoalInput={setGoalInput}/>
+          <Homescreen
+            setStartReview={setStartReview}
+            goalInput={goalInput}
+            setGoalInput={setGoalInput}
+            startReview={startReview}
+            chosenDeck={chosenDeck}
+            setChosenDeck={setChosenDeck}
+            statusSaved={statusSaved}
+            setStatusSaved={setStatusSaved}
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+            setShowIcons={setShowIcons}
+          />
         </>
       )}
     </>

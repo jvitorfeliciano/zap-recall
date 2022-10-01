@@ -19,7 +19,7 @@ const Header = styled.div`
   img {
     width: 52px;
   }
-  
+
   h1 {
     font-family: "Righteous";
     font-style: normal;
