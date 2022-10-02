@@ -97,8 +97,13 @@ export default function CardStructure({
   if (questionNumber.includes(index)) {
     return (
       <HiddenQuestion data-identifier="flashcard">
-        <span>Pergunta {index + 1}</span>
-        <img data-identifier="flashcard-show-btn" onClick={() => selectQuestion(index)} src={play} alt="play" />
+        <span data-identifier="flashcard-index-item">Pergunta {index + 1}</span>
+        <img
+          data-identifier="flashcard-show-btn"
+          onClick={() => selectQuestion(index)}
+          src={play}
+          alt="play"
+        />
       </HiddenQuestion>
     );
   } else if (questionAdressVector.includes(index)) {
@@ -106,7 +111,12 @@ export default function CardStructure({
     return (
       <RevealedQuestion data-identifier="flashcard">
         <span data-identifier="flashcard-question">{card.Q}</span>
-        <img data-identifier="flashcard-turn-btn" src={seta} onClick={() => showAnswer(index)} alt="arrow" />
+        <img
+          data-identifier="flashcard-turn-btn"
+          src={seta}
+          onClick={() => showAnswer(index)}
+          alt="arrow"
+        />
       </RevealedQuestion>
     );
   } else if (answerAdress.includes(index)) {
@@ -115,13 +125,25 @@ export default function CardStructure({
       <RevealedQuestion data-identifier="flashcard">
         <span data-identifier="flashcard-answer">{card.R}</span>
         <ButtonContainer>
-          <ErrorButton data-identifier="forgot-btn" onClick={() => assessment("error")} type="button">
+          <ErrorButton
+            data-identifier="forgot-btn"
+            onClick={() => assessment("error")}
+            type="button"
+          >
             Não lembrei
           </ErrorButton>
-          <AlmostButton data-identifier="almost-forgot-btn" onClick={() => assessment("almost")} type="button">
+          <AlmostButton
+            data-identifier="almost-forgot-btn"
+            onClick={() => assessment("almost")}
+            type="button"
+          >
             Quase não lembrei
           </AlmostButton>
-          <ZapButton data-identifier="zap-btn" onClick={() => assessment("zap")} type="button">
+          <ZapButton
+            data-identifier="zap-btn"
+            onClick={() => assessment("zap")}
+            type="button"
+          >
             Zap!
           </ZapButton>
         </ButtonContainer>
@@ -130,8 +152,9 @@ export default function CardStructure({
   } else if (flippedAdress.length !== 0) {
     return (
       <HiddenQuestion data-identifier="flashcard" status={statusSaved[index]}>
-        <h1>Pergunta {index + 1}</h1>
-        <ion-icon  data-identifier="flashcard-status"
+        <h1 data-identifier="flashcard-index-item">Pergunta {index + 1}</h1>
+        <ion-icon
+          data-identifier="flashcard-status"
           name={
             statusSaved[index] === "error"
               ? "close-circle"
@@ -157,7 +180,7 @@ const HiddenQuestion = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  cursor:pointer;
+  cursor: pointer;
 
   span {
     font-family: "Recursive";
@@ -174,7 +197,7 @@ const HiddenQuestion = styled.div`
     width: 20px;
     height: 20px;
     color: #333333;
-    cursor:pointer;
+    cursor: pointer;
   }
   ion-icon {
     position: absolute;
@@ -234,7 +257,7 @@ const RevealedQuestion = styled.div`
     position: absolute;
     bottom: 10px;
     right: 10px;
-    cursor:pointer;
+    cursor: pointer;
   }
 `;
 
